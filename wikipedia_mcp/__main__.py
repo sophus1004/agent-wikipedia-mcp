@@ -10,21 +10,31 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+
+def _ensure_package_on_sys_path() -> None:
+    """Ensure the project root is on sys.path when running as a script."""
+    if __package__:
+        return
+    package_dir = Path(__file__).resolve().parent
+    project_root = package_dir.parent
+    project_root_str = str(project_root)
+    if project_root_str not in sys.path:
+        sys.path.insert(0, project_root_str)
+
+
+_ensure_package_on_sys_path()
+
+from wikipedia_mcp.server import create_server
+
+# Expose a default server instance for FastMCP discovery tools.
+server = create_server()
+
 # Load environment variables from .env file if it exists
 load_dotenv()
 
 
 def main():
     """Run the Wikipedia MCP server."""
-
-    def _ensure_package_on_sys_path():
-        if __package__:
-            return
-        package_dir = Path(__file__).resolve().parent
-        project_root = package_dir.parent
-        project_root_str = str(project_root)
-        if project_root_str not in sys.path:
-            sys.path.insert(0, project_root_str)
 
     class LanguageAction(argparse.Action):
         def __call__(self, parser, namespace, values, option_string=None):
@@ -98,10 +108,6 @@ def main():
         ),
     )
     args = parser.parse_args()
-
-    _ensure_package_on_sys_path()
-
-    from wikipedia_mcp.server import create_server
 
     # Handle --list-countries
     if args.list_countries:
