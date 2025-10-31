@@ -4,11 +4,11 @@ Main entry point for the Wikipedia MCP server.
 
 import argparse
 import logging
-import sys
 import os
-from dotenv import load_dotenv
+import sys
+from pathlib import Path
 
-from wikipedia_mcp.server import create_server
+from dotenv import load_dotenv
 
 # Load environment variables from .env file if it exists
 load_dotenv()
@@ -16,6 +16,15 @@ load_dotenv()
 
 def main():
     """Run the Wikipedia MCP server."""
+
+    def _ensure_package_on_sys_path():
+        if __package__:
+            return
+        package_dir = Path(__file__).resolve().parent
+        project_root = package_dir.parent
+        project_root_str = str(project_root)
+        if project_root_str not in sys.path:
+            sys.path.insert(0, project_root_str)
 
     class LanguageAction(argparse.Action):
         def __call__(self, parser, namespace, values, option_string=None):
@@ -89,6 +98,10 @@ def main():
         ),
     )
     args = parser.parse_args()
+
+    _ensure_package_on_sys_path()
+
+    from wikipedia_mcp.server import create_server
 
     # Handle --list-countries
     if args.list_countries:
