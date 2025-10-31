@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir .
 # ---------- 환경 변수 ----------
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONPATH=/app     # 🔥 핵심: FastMCP가 wikipedia_mcp 패키지를 찾을 수 있도록 보장
+ENV PYTHONPATH=/app
 
 # ---------- MCP 설정 ----------
 EXPOSE 8080
