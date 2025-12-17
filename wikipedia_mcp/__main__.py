@@ -1,3 +1,4 @@
+#
 """
 Main entry point for the Wikipedia MCP server.
 This script parses command-line arguments, reads optional environment variables,
