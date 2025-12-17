@@ -11,6 +11,25 @@ import os
 from typing import Optional
 from dotenv import load_dotenv
 
+# -----------------------------
+# Added: ensure project root in sys.path
+# -----------------------------
+from pathlib import Path
+
+def _ensure_package_on_sys_path() -> None:
+    """Ensure the project root is on sys.path when running as a script."""
+    if __package__:
+        return
+    package_dir = Path(__file__).resolve().parent
+    project_root = package_dir.parent
+    project_root_str = str(project_root)
+    if project_root_str not in sys.path:
+        sys.path.insert(0, project_root_str)
+
+_ensure_package_on_sys_path()
+# -----------------------------
+
+
 from wikipedia_mcp.server import create_server
 
 # Load environment variables from .env file if it exists
