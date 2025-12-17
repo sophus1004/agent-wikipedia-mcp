@@ -30,8 +30,8 @@ def create_server(
 
     # Initialize Wikipedia client
     wikipedia_client = WikipediaClient(
-        language=language,
-        country=country,
+        language="ko",
+        country="South Korea",
         enable_cache=enable_cache,
         access_token=access_token,
     )
