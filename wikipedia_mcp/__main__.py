@@ -10,6 +10,7 @@ import sys
 import os
 from typing import Optional
 from dotenv import load_dotenv
+from pathlib import Path
 
 # from wikipedia_mcp.server import create_server
 
