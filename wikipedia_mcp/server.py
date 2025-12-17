@@ -11,7 +11,7 @@ from typing import Dict, Optional, Any, Annotated
 from pydantic import Field
 
 from fastmcp import FastMCP
-from wikipedia_client import WikipediaClient
+from wikipedia_mcp.wikipedia_client import WikipediaClient
 
 logger = logging.getLogger(__name__)
 
@@ -30,8 +30,8 @@ def create_server(
 
     # Initialize Wikipedia client
     wikipedia_client = WikipediaClient(
-        language="ko",
-        country="South Korea",
+        language=language,
+        country=country,
         enable_cache=enable_cache,
         access_token=access_token,
     )
