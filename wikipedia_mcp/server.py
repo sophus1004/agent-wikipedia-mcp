@@ -11,7 +11,7 @@ from typing import Dict, Optional, Any, Annotated
 from pydantic import Field
 
 from fastmcp import FastMCP
-from .wikipedia_client import WikipediaClient
+from wikipedia_client import WikipediaClient
 
 logger = logging.getLogger(__name__)
 
